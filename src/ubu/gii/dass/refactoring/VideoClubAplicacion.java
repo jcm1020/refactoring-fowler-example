@@ -1,4 +1,8 @@
 package ubu.gii.dass.refactoring;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class VideoClubAplicacion {
 
 	public static void main(String[] arg) {
@@ -17,6 +21,16 @@ public class VideoClubAplicacion {
 		c1.addRental(r3);
 
 		System.out.println(c1.statement());
+		
+		String htmlContent = c1.htmlStatement();
+
+        // Escribir el contenido HTML en un archivo
+        try (FileWriter fileWriter = new FileWriter("rental_record.html")) {
+            fileWriter.write(htmlContent);
+            System.out.println("Contenido HTML ha sido escrito en rental_registro.html");
+        } catch (IOException e) {
+            System.err.println("Error escribiendo a archivo: " + e.getMessage());
+        }
 
 	}
 
