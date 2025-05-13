@@ -1,4 +1,5 @@
 package ubu.gii.dass.refactoring;
+
 /**
  * Tema Refactorizaciones
  * 
@@ -10,6 +11,7 @@ package ubu.gii.dass.refactoring;
  * @see java.io.File
  * 
  */
+
 public class Rental {
 	private Movie _movie;
 	private int _daysRented;
@@ -27,4 +29,13 @@ public class Rental {
 		return _movie;
 	}
 
+	// Delegamos el cálculo del importe a Movie
+	public double getCharge() {
+		return _movie.getCharge(_daysRented);
+	}
+
+	// Delegamos el cálculo de puntos a Movie
+	public int getFrequentRenterPoints() {
+		return _movie.getFrequentRenterPoints(_daysRented);
+	}
 }
