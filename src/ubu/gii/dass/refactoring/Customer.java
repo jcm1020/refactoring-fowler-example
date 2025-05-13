@@ -10,6 +10,7 @@ package ubu.gii.dass.refactoring;
 * @see java.io.File
 *
 */
+
 import java.util.*;
 
 public class Customer {
@@ -19,8 +20,7 @@ public class Customer {
 	public Customer(String name) {
 		_name = name;
 		_rentals = new ArrayList<Rental>();
-
-	};
+	}
 
 	public void addRental(Rental arg) {
 		_rentals.add(arg);
@@ -28,48 +28,59 @@ public class Customer {
 
 	public String getName() {
 		return _name;
-	};
+	}
 
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-		Iterator<Rental> rentals = _rentals.iterator();
-		String result = "Rental Record for " + getName() + "\n";
-		while (rentals.hasNext()) {
-			double thisAmount = 0;
-			Rental each = rentals.next();
-			// determine amounts for each line
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRented() > 2)
-					thisAmount += (each.getDaysRented() - 2) * 1.5;
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRented() > 3)
-					thisAmount += (each.getDaysRented() - 3) * 1.5;
-				break;
-			}
-			
-			// add frequent renter points
-			frequentRenterPoints++;
-			// add bonus for a two day new release rental
-			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-					&& each.getDaysRented() > 1)
-				frequentRenterPoints++;
-			// show figures for this rental
-			result += "\t" + each.getMovie().getTitle() + "\t"
-					+ String.valueOf(thisAmount) + "\n";
-			totalAmount += thisAmount;
+		StringBuilder result = new StringBuilder("Rental Record for " + getName() + "\n");
+		for (Rental rental : _rentals) {
+			// Delegamos el cálculo al objeto rental
+			result.append("\t")
+			      .append(rental.getMovie().getTitle())
+			      .append("\t")
+			      .append(rental.getCharge())
+			      .append("\n");
 		}
-		// add footer lines
-		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints)
-				+ " frequent renter points";
-		return result;
+		result.append("Amount owed is ").append(totalAmount()).append("\n");
+		result.append("You earned ").append(totalFrequentRenterPoints()).append(" frequent renter points");
+		return result.toString();
+	}
+
+	public String htmlStatement() {
+		StringBuilder result = new StringBuilder("<h1>Rental Record for " + getName() + "</h1>\n");
+		result.append("<table border='1'>\n<tr><th>Movie Title</th><th>Amount</th></tr>\n");
+
+		for (Rental rental : _rentals) {
+			result.append("<tr><td>")
+			      .append(rental.getMovie().getTitle())
+			      .append("</td><td>")
+			      .append(rental.getCharge())
+			      .append("</td></tr>\n");
+		}
+
+		result.append("</table>\n");
+		result.append("<p>Amount owed is <strong>")
+		      .append(totalAmount())
+		      .append("</strong></p>\n");
+		result.append("<p>You earned <strong>")
+		      .append(totalFrequentRenterPoints())
+		      .append("</strong> frequent renter points</p>");
+
+		return result.toString();
+	}
+
+	private double totalAmount() {
+		double total = 0;
+		for (Rental rental : _rentals) {
+			total += rental.getCharge();
+		}
+		return total;
+	}
+
+	private int totalFrequentRenterPoints() {
+		int total = 0;
+		for (Rental rental : _rentals) {
+			total += rental.getFrequentRenterPoints();
+		}
+		return total;
 	}
 }
