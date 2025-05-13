@@ -2,6 +2,9 @@ package ubu.gii.dass.refactoring;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,5 +58,32 @@ public class VideoClubTest {
 		assertTrue("Calcula mal el alquiler", salidaEsperada.equals(salida));
 
 	}
+/*	
+	@Test
+    public void testHtmlStatement() {
+        // Crear una lista de rentals
+        List<Rental> rentals = new ArrayList<>();
+        Movie movie1 = new Movie("Movie 1", Movie.REGULAR);
+        Movie movie2 = new Movie("Movie 2", Movie.NEW_RELEASE);
+        rentals.add(new Rental(movie1, 3));
+        rentals.add(new Rental(movie2, 2));
+
+        // Crear un customer y agregar los rentals
+        Customer customer = new Customer("John Doe");
+        for (Rental rental : rentals) {
+            customer.addRental(rental);
+        }
+
+        // Llamar al método htmlStatement y verificar el resultado
+        String expectedHtml = "<h1>Rental Record for John Doe</h1>\n" +
+                              "<table border='1'>\n" +
+                              "<tr><th>Movie Title</th><th>Amount</th></tr>\n" +
+                              "<tr><td>Movie 1</td><td>3.5</td></tr>\n" +
+                              "<tr><td>Movie 2</td><td>6.0</td></tr>\n" +
+                              "</table>\n" +
+                              "<p>Amount owed is <strong>9.5</strong></p>\n" +
+                              "<p>You earned <strong>2</strong> frequent renter points</p>";
+        assertEquals(expectedHtml, customer.htmlStatement());
+    }*/
 
 }
