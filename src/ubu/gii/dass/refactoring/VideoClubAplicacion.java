@@ -25,7 +25,7 @@ public class VideoClubAplicacion {
 		String htmlContent = c1.htmlStatement();
 
         // Escribir el contenido HTML en un archivo
-        try (FileWriter fileWriter = new FileWriter("rental_record.html")) {
+        try (FileWriter fileWriter = new FileWriter("rental_registro.html")) {
             fileWriter.write(htmlContent);
             System.out.println("Contenido HTML ha sido escrito en rental_registro.html");
         } catch (IOException e) {
