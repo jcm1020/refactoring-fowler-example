@@ -1,4 +1,4 @@
-package ubu.gii.dass.refactoring;
+/*package ubu.gii.dass.refactoring;
 
 class NewReleasePrice extends Price {
 	public int getPriceCode() {
@@ -12,4 +12,4 @@ class NewReleasePrice extends Price {
 	public int getFrequentRenterPoints(int daysRented) {
 		return (daysRented > 1) ? 2 : 1;
 	}
-}
+}*/
