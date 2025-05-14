@@ -104,7 +104,7 @@ public class Customer {
 		return frequentRenterPoints;
 	}
 
-	private double calculateAmount(Rental rental) {
+/*	private double calculateAmount(Rental rental) {
 		double thisAmount = 0;
 		switch (rental.getMovie().getPriceCode()) {
 		case Movie.REGULAR:
@@ -118,7 +118,7 @@ public class Customer {
 			break;
 		}
 		return thisAmount;
-	}
+	}*/
 
 	private double childrensAmount(Rental rental, double thisAmount) {
 		thisAmount += 1.5;
