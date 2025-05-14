@@ -21,8 +21,8 @@ import org.junit.Test;
  * 
  */
 public class VideoClubTest {
-	protected Movie m0, m11, m12, m2;
-	protected Customer c1;
+	protected Movie m0, m11, m12, m2, movie1, movie2;
+	protected Customer c1, customer;
 	
 	@Before
 	public void setUp() {
@@ -30,8 +30,13 @@ public class VideoClubTest {
 		m12 = new Movie("Alejandro Magno", 1);
 		m0 = new Movie("Accion Mutante", 0);
 		m2 = new Movie("Hermano Oso", 2);
+		
+		movie1 = new Movie("Movie 1", Movie.REGULAR);
+        movie2 = new Movie("Movie 2", Movie.NEW_RELEASE);
 
 		c1 = new Customer("Manuel");
+		
+		customer = new Customer("John Doe");
 	}
 
 	@After
@@ -58,18 +63,17 @@ public class VideoClubTest {
 		assertTrue("Calcula mal el alquiler", salidaEsperada.equals(salida));
 
 	}
-/*	
+	
 	@Test
     public void testHtmlStatement() {
         // Crear una lista de rentals
         List<Rental> rentals = new ArrayList<>();
-        Movie movie1 = new Movie("Movie 1", Movie.REGULAR);
-        Movie movie2 = new Movie("Movie 2", Movie.NEW_RELEASE);
+        
         rentals.add(new Rental(movie1, 3));
         rentals.add(new Rental(movie2, 2));
 
         // Crear un customer y agregar los rentals
-        Customer customer = new Customer("John Doe");
+        
         for (Rental rental : rentals) {
             customer.addRental(rental);
         }
@@ -82,8 +86,9 @@ public class VideoClubTest {
                               "<tr><td>Movie 2</td><td>6.0</td></tr>\n" +
                               "</table>\n" +
                               "<p>Amount owed is <strong>9.5</strong></p>\n" +
-                              "<p>You earned <strong>2</strong> frequent renter points</p>";
+                              "<p>You earned <strong>3</strong> frequent renter points</p>";
+        
         assertEquals(expectedHtml, customer.htmlStatement());
-    }*/
+    }
 
 }
