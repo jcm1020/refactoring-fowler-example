@@ -2,6 +2,9 @@ package ubu.gii.dass.refactoring;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +21,8 @@ import org.junit.Test;
  * 
  */
 public class VideoClubTest {
-	protected Movie m0, m11, m12, m2;
-	protected Customer c1;
+	protected Movie m0, m11, m12, m2, movie1, movie2;
+	protected Customer c1, customer;
 	
 	@Before
 	public void setUp() {
@@ -27,8 +30,13 @@ public class VideoClubTest {
 		m12 = new Movie("Alejandro Magno", 1);
 		m0 = new Movie("Accion Mutante", 0);
 		m2 = new Movie("Hermano Oso", 2);
+		
+		movie1 = new Movie("Movie 1", Movie.REGULAR);
+        movie2 = new Movie("Movie 2", Movie.NEW_RELEASE);
 
 		c1 = new Customer("Manuel");
+		
+		customer = new Customer("John Doe");
 	}
 
 	@After
@@ -55,5 +63,32 @@ public class VideoClubTest {
 		assertTrue("Calcula mal el alquiler", salidaEsperada.equals(salida));
 
 	}
+	
+	@Test
+    public void testHtmlStatement() {
+        // Crear una lista de rentals
+        List<Rental> rentals = new ArrayList<>();
+        
+        rentals.add(new Rental(movie1, 3));
+        rentals.add(new Rental(movie2, 2));
+
+        // Crear un customer y agregar los rentals
+        
+        for (Rental rental : rentals) {
+            customer.addRental(rental);
+        }
+
+        // Llamar al método htmlStatement y verificar el resultado
+        String expectedHtml = "<h1>Rental Record for John Doe</h1>\n" +
+                              "<table border='1'>\n" +
+                              "<tr><th>Movie Title</th><th>Amount</th></tr>\n" +
+                              "<tr><td>Movie 1</td><td>3.5</td></tr>\n" +
+                              "<tr><td>Movie 2</td><td>6.0</td></tr>\n" +
+                              "</table>\n" +
+                              "<p>Amount owed is <strong>9.5</strong></p>\n" +
+                              "<p>You earned <strong>3</strong> frequent renter points</p>";
+        
+        assertEquals(expectedHtml, customer.htmlStatement());
+    }
 
 }
